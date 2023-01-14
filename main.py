@@ -19,7 +19,7 @@ class SubWar:
         self.rect_width = 6
         self.space_between = 10
         self.default_grid_x = (SCREEN_WIDTH - (9 * self.space_between + self.rect_width)) / 2
-        self.default_grid_y = 0
+        self.default_grid_y = (SCREEN_HEIGHT - (9 * self.space_between + self.rect_height)) / 2
         self.grid_i = 0
         self.mouse_pos = (pyxel.mouse_x, pyxel.mouse_y)
         self.mouse_click = "NO"
