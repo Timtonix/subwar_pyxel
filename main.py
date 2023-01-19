@@ -23,8 +23,6 @@ class SubWar:
         self.default_grid_y = (SCREEN_HEIGHT - (9 * self.space_between + self.rect_height)) / 2
         self.grid_i = 0
         self.mouse_pos = (pyxel.mouse_x, pyxel.mouse_y)
-        self.mouse_click = "NO"
-        print(SCREEN_WIDTH / (9 * self.space_between + self.rect_width))
         pyxel.mouse(True)
 
         pyxel.run(self.update, self.draw)
@@ -58,15 +56,7 @@ class SubWar:
                             area = 36
                             
                         """
-
-
-
-    def draw(self):
-        pyxel.cls(0)
-        # Create the grid
-        self.draw_grid(col=4)
-
-        pyxel.text(5, 4, f"x = {pyxel.mouse_x} {pyxel.mouse_y}", col=3)
+                        print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
 
     def draw_grid(self, col):
         x = self.default_grid_x
@@ -83,5 +73,14 @@ class SubWar:
                 y += self.space_between
                 x = self.default_grid_x
                 self.grid_i += 1
+
+    def draw(self):
+        pyxel.cls(0)
+        # Create the grid
+        self.draw_grid(col=4)
+
+        pyxel.text(5, 4, f"x = {pyxel.mouse_x} {pyxel.mouse_y}", col=3)
+
+
 
 SubWar()
