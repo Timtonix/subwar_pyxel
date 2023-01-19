@@ -14,7 +14,7 @@ SCREEN_HEIGHT = 120
 class SubWar:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
-        self.hidden_grid = [[[''] for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
+        self.color_grid = [[7 for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
         self.gps_grid = [[[''] for _ in range(10)] for _ in range(10)]
         self.rect_height = 6
         self.rect_width = 6
@@ -29,7 +29,7 @@ class SubWar:
 
     def update(self):
         if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
-            grid_length = len(self.hidden_grid)
+            grid_length = len(self.color_grid)
             # On compte le nombre de tableaux dans la grid
             for row in range(grid_length):
                 for line in range(grid_length):
@@ -58,16 +58,17 @@ class SubWar:
                         """
                         print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
 
-    def draw_grid(self, col):
+    def draw_grid(self):
         x = self.default_grid_x
         y = self.default_grid_y
         self.grid_i = 0
 
         while self.grid_i < 10:
-            grid_length = len(self.hidden_grid)
+            grid_length = len(self.color_grid)
             for row in range(grid_length):
                 for line in range(grid_length):
-                    pyxel.rect(x, y, self.rect_width, self.rect_height, col)
+                    print(self.color_grid[row][line])
+                    pyxel.rect(x, y, self.rect_width, self.rect_height, self.color_grid[row][line])
                     self.gps_grid[row][line] = (x, y)
                     x += self.space_between
                 y += self.space_between
@@ -77,7 +78,7 @@ class SubWar:
     def draw(self):
         pyxel.cls(0)
         # Create the grid
-        self.draw_grid(col=4)
+        self.draw_grid()
 
         pyxel.text(5, 4, f"x = {pyxel.mouse_x} {pyxel.mouse_y}", col=3)
 
