@@ -41,11 +41,11 @@ class SubWar:
                         """
                         Explication du calcul mené ci-dessus :
                         
-                        dx: c'est la position x d'un carré moins x de la souris
+                        dx: c'est la position x d'un carré moins x de la souris -
                         dy: pareil mais avec y
                         
                         PRINT :
-                            rect_x 32.0
+                            rect_x 32.0 
                             rect_y = 12.0
                             dx = -2.0
                             dy = -2.0
@@ -79,7 +79,6 @@ class SubWar:
         self.draw_grid()
 
         pyxel.text(5, 4, f"x = {pyxel.mouse_x} {pyxel.mouse_y}", col=3)
-
 
 
 SubWar()
