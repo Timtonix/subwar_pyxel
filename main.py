@@ -16,11 +16,10 @@ class SubWar:
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
         self.color_grid = [[7 for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
         self.gps_grid = [[[''] for _ in range(10)] for _ in range(10)]
-        self.rect_height = 6
-        self.rect_width = 6
-        self.space_between = 10
-        self.default_grid_x = (SCREEN_WIDTH - (9 * self.space_between + self.rect_width)) / 2
-        self.default_grid_y = (SCREEN_HEIGHT - (9 * self.space_between + self.rect_height)) / 2
+        self.circ_radius = 4
+        self.space_between = 11
+        self.default_grid_x = (SCREEN_WIDTH - (9 * self.space_between + self.circ_radius)) / 2
+        self.default_grid_y = (SCREEN_HEIGHT - (9 * self.space_between + self.circ_radius)) / 2
         self.grid_i = 0
         self.mouse_pos = (pyxel.mouse_x, pyxel.mouse_y)
         pyxel.mouse(True)
@@ -38,7 +37,7 @@ class SubWar:
                     dx = self.gps_grid[row][line][0] - pyxel.mouse_x
                     dy = self.gps_grid[row][line][1] - pyxel.mouse_y
 
-                    if dx * dx + dy * dy < self.rect_height * self.rect_width:
+                    if dx * dx + dy * dy < self.circ_radius * self.circ_radius:
                         """
                         Explication du calcul mené ci-dessus :
                         
@@ -67,8 +66,7 @@ class SubWar:
             grid_length = len(self.color_grid)
             for row in range(grid_length):
                 for line in range(grid_length):
-                    print(self.color_grid[row][line])
-                    pyxel.rect(x, y, self.rect_width, self.rect_height, self.color_grid[row][line])
+                    pyxel.circ(x, y, self.circ_radius, self.color_grid[row][line])
                     self.gps_grid[row][line] = (x, y)
                     x += self.space_between
                 y += self.space_between
