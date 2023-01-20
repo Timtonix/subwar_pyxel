@@ -15,13 +15,12 @@ SCREEN_HEIGHT = 120
 class SubWar:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
-        self.ship_grid = [[[''] for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
+        self.color_grid = [[7 for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
         self.gps_grid = [[[''] for _ in range(10)] for _ in range(10)]
-        self.rect_height = 6
-        self.rect_width = 6
-        self.space_between = 10
-        self.default_grid_x = (SCREEN_WIDTH - (9 * self.space_between + self.rect_width)) / 2
-        self.default_grid_y = (SCREEN_HEIGHT - (9 * self.space_between + self.rect_height)) / 2
+        self.circ_radius = 4
+        self.space_between = 11
+        self.default_grid_x = (SCREEN_WIDTH - (9 * self.space_between + self.circ_radius)) / 2
+        self.default_grid_y = (SCREEN_HEIGHT - (9 * self.space_between + self.circ_radius)) / 2
         self.grid_i = 0
         self.mouse_pos = (pyxel.mouse_x, pyxel.mouse_y)
         pyxel.mouse(True)
@@ -30,7 +29,7 @@ class SubWar:
 
     def update(self):
         if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
-            grid_length = len(self.ship_grid)
+            grid_length = len(self.color_grid)
             # On compte le nombre de tableaux dans la grid
             for row in range(grid_length):
                 for line in range(grid_length):
@@ -39,15 +38,15 @@ class SubWar:
                     dx = self.gps_grid[row][line][0] - pyxel.mouse_x
                     dy = self.gps_grid[row][line][1] - pyxel.mouse_y
 
-                    if dx * dx + dy * dy < self.rect_height * self.rect_width:
+                    if dx * dx + dy * dy < self.circ_radius * self.circ_radius:
                         """
                         Explication du calcul mené ci-dessus :
                         
-                        dx: c'est la position x d'un carré moins x de la souris
+                        dx: c'est la position x d'un carré moins x de la souris -
                         dy: pareil mais avec y
                         
                         PRINT :
-                            rect_x 32.0
+                            rect_x 32.0 
                             rect_y = 12.0
                             dx = -2.0
                             dy = -2.0
@@ -59,7 +58,7 @@ class SubWar:
                         """
                         print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
 
-    def draw_grid(self, col):
+    def draw_grid(self):
         x = self.default_grid_x
         y = self.default_grid_y
         self.grid_i = 0
@@ -68,7 +67,7 @@ class SubWar:
             grid_length = len(self.ship_grid)
             for row in range(grid_length):
                 for line in range(grid_length):
-                    pyxel.rect(x, y, self.rect_width, self.rect_height, col)
+                    pyxel.circ(x, y, self.circ_radius, self.color_grid[row][line])
                     self.gps_grid[row][line] = (x, y)
                     x += self.space_between
                 y += self.space_between
@@ -78,10 +77,9 @@ class SubWar:
     def draw(self):
         pyxel.cls(0)
         # Create the grid
-        self.draw_grid(col=4)
+        self.draw_grid()
 
         pyxel.text(5, 4, f"x = {pyxel.mouse_x} {pyxel.mouse_y}", col=3)
-
 
 
 SubWar()
