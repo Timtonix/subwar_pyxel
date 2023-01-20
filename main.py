@@ -11,10 +11,11 @@ List of submarines :
 SCREEN_WIDTH = 160
 SCREEN_HEIGHT = 120
 
+
 class SubWar:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
-        self.hidden_grid = [[[''] for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
+        self.ship_grid = [[[''] for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
         self.gps_grid = [[[''] for _ in range(10)] for _ in range(10)]
         self.rect_height = 6
         self.rect_width = 6
@@ -29,7 +30,7 @@ class SubWar:
 
     def update(self):
         if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
-            grid_length = len(self.hidden_grid)
+            grid_length = len(self.ship_grid)
             # On compte le nombre de tableaux dans la grid
             for row in range(grid_length):
                 for line in range(grid_length):
@@ -64,7 +65,7 @@ class SubWar:
         self.grid_i = 0
 
         while self.grid_i < 10:
-            grid_length = len(self.hidden_grid)
+            grid_length = len(self.ship_grid)
             for row in range(grid_length):
                 for line in range(grid_length):
                     pyxel.rect(x, y, self.rect_width, self.rect_height, col)
