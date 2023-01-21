@@ -1,5 +1,5 @@
 import pyxel
-
+import boat
 """
 List of submarines :
 
@@ -24,6 +24,9 @@ class SubWar:
         self.mouse_pos = (pyxel.mouse_x, pyxel.mouse_y)
         pyxel.mouse(True)
 
+        # Create boats
+        self.ships = boat.Boat(5)
+        self.ships.place_ships()
 
         pyxel.run(self.update, self.draw)
 
@@ -56,8 +59,11 @@ class SubWar:
                             area = 36
                             
                         """
-                        print(self.gps_grid)
-                        print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
+                        if self.ships.is_there_a_boat((row, line)):
+                            self.color_grid[row][line] = 8 # Rouge
+                        else:
+                            self.color_grid[row][line] = 12 # Bleu
+                            print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
 
     def draw_grid(self):
         x = self.default_grid_x
