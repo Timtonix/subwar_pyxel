@@ -8,8 +8,8 @@ List of submarines :
 - US Spider*2 : 2 points
 - Taiwanese Dragon : 3 points
 """
-SCREEN_WIDTH = 160
-SCREEN_HEIGHT = 120
+SCREEN_WIDTH = 120
+SCREEN_HEIGHT = 160
 
 
 class SubWar:
@@ -60,9 +60,9 @@ class SubWar:
                             
                         """
                         if self.ships.is_there_a_boat((row, line)):
-                            self.color_grid[row][line] = 8 # Rouge
+                            self.color_grid[row][line] = 8  # Rouge
                         else:
-                            self.color_grid[row][line] = 12 # Bleu
+                            self.color_grid[row][line] = 12  # Bleu
                             print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
 
     def draw_grid(self):
@@ -79,10 +79,12 @@ class SubWar:
 
     def draw(self):
         pyxel.cls(0)
-        # Create the grid
-        self.draw_grid()
-
-        pyxel.text(5, 4, f"x = {pyxel.mouse_x} {pyxel.mouse_y}", col=3)
+        if self.ships.remaining_boat() == 0:
+            pyxel.text(self.default_grid_x, self.default_grid_y, "YOU WIN", col=8)
+        else:
+            # Create the grid
+            self.draw_grid()
+            pyxel.text(5, 4, f"Remaining Boat : {int(self.ships.remaining_boat())}", 3)
 
 
 SubWar()
