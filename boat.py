@@ -14,7 +14,8 @@ class Boat:
             self.bot_grid[ship_row][ship_line] = 'X'
         print(self.bot_grid)
 
-
-boat = Boat(5)
-boat.place_ships()
-
+    def is_there_a_boat(self, coordinates: tuple) -> bool:
+        # Coordinates accept value between 0 and 9 for the row and line
+        if self.bot_grid[coordinates[0]][coordinates[1]]:
+            return True
+        return False

@@ -1,5 +1,5 @@
 import pyxel
-
+import boat
 """
 List of submarines :
 
@@ -16,14 +16,17 @@ class SubWar:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
         self.color_grid = [[7 for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
-        self.gps_grid = [[[''] for _ in range(10)] for _ in range(10)]
+        self.gps_grid = [[0 for _ in range(10)] for _ in range(10)]
         self.circ_radius = 4
         self.space_between = 11
         self.default_grid_x = (SCREEN_WIDTH - (9 * self.space_between + self.circ_radius)) / 2
         self.default_grid_y = (SCREEN_HEIGHT - (9 * self.space_between + self.circ_radius)) / 2
-        self.grid_i = 0
         self.mouse_pos = (pyxel.mouse_x, pyxel.mouse_y)
         pyxel.mouse(True)
+
+        # Create boats
+        self.ships = boat.Boat(5)
+        self.ships.place_ships()
 
         pyxel.run(self.update, self.draw)
 
@@ -56,23 +59,23 @@ class SubWar:
                             area = 36
                             
                         """
-                        print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
+                        if self.ships.is_there_a_boat((row, line)):
+                            self.color_grid[row][line] = 8 # Rouge
+                        else:
+                            self.color_grid[row][line] = 12 # Bleu
+                            print(f"Clicked on {self.gps_grid[row][line][0]} - {self.gps_grid[row][line][1]}")
 
     def draw_grid(self):
         x = self.default_grid_x
         y = self.default_grid_y
-        self.grid_i = 0
-
-        while self.grid_i < 10:
-            grid_length = len(self.ship_grid)
-            for row in range(grid_length):
-                for line in range(grid_length):
-                    pyxel.circ(x, y, self.circ_radius, self.color_grid[row][line])
-                    self.gps_grid[row][line] = (x, y)
-                    x += self.space_between
-                y += self.space_between
-                x = self.default_grid_x
-                self.grid_i += 1
+        grid_length = len(self.color_grid)
+        for row in range(grid_length):
+            for line in range(grid_length):
+                pyxel.circ(x, y, self.circ_radius, self.color_grid[row][line])
+                self.gps_grid[row][line] = (x, y)
+                x += self.space_between
+            y += self.space_between
+            x = self.default_grid_x
 
     def draw(self):
         pyxel.cls(0)
