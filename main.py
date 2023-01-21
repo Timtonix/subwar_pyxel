@@ -11,6 +11,7 @@ List of submarines :
 SCREEN_WIDTH = 160
 SCREEN_HEIGHT = 120
 
+
 class SubWar:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
@@ -63,7 +64,7 @@ class SubWar:
         self.grid_i = 0
 
         while self.grid_i < 10:
-            grid_length = len(self.color_grid)
+            grid_length = len(self.ship_grid)
             for row in range(grid_length):
                 for line in range(grid_length):
                     pyxel.circ(x, y, self.circ_radius, self.color_grid[row][line])
