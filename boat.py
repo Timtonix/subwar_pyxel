@@ -14,7 +14,3 @@ class Boat:
             self.bot_grid[ship_row][ship_line] = 'X'
         print(self.bot_grid)
 
-
-boat = Boat(5)
-boat.place_ships()
-
