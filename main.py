@@ -12,7 +12,7 @@ SCREEN_WIDTH = 120
 SCREEN_HEIGHT = 160
 
 
-class SubWar:
+class MainScreen:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
         self.color_grid = [[7 for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
@@ -87,4 +87,4 @@ class SubWar:
             pyxel.text(5, 4, f"Remaining Boat : {int(self.ships.remaining_boat())}", 3)
 
 
-SubWar()
+MainScreen()
