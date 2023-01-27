@@ -1,5 +1,6 @@
 import pyxel
 import boat
+
 """
 List of submarines :
 
@@ -12,7 +13,7 @@ SCREEN_WIDTH = 120
 SCREEN_HEIGHT = 160
 
 
-class MainScreen:
+class MainBotScreen:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="BattleShip")
         self.color_grid = [[7 for _ in range(10)] for _ in range(10)]  # Create a nested list of 10*10
@@ -44,10 +45,10 @@ class MainScreen:
                     if dx * dx + dy * dy < self.circ_radius * self.circ_radius:
                         """
                         Explication du calcul mené ci-dessus :
-                        
+
                         dx: c'est la position x d'un carré moins x de la souris -
                         dy: pareil mais avec y
-                        
+
                         PRINT :
                             rect_x 32.0 
                             rect_y = 12.0
@@ -57,7 +58,7 @@ class MainScreen:
                             mouse_y = 14
                             dx * dx + dy * dy = 8.0 -> cela nous donnes un aire dans le carré cliqué, si < 36 c'est que c'est bien dans notre carré !
                             area = 36
-                            
+
                         """
                         if self.ships.is_there_a_boat((row, line)):
                             self.color_grid[row][line] = 8  # Rouge
@@ -87,4 +88,4 @@ class MainScreen:
             pyxel.text(5, 4, f"Remaining Boat : {int(self.ships.remaining_boat())}", 3)
 
 
-MainScreen()
+MainBotScreen()
